@@ -8,16 +8,16 @@ namespace DigitalisNyomozas
 {
 	internal class Case
 	{
-		private string ugyId;
+		private string id;
 		private string cim;
 		private string leiras;
 		private string allapot;
 		private List<Person> szemelyekLista;
 		private List<Evidence> bizonyitekokLista;
 
-		public Case(string ugyId, string cim, string leiras, string allapot, List<Person> szemelyekLista, List<Evidence> bizonyitekokLista)
+		public Case(string id, string cim, string leiras, string allapot, List<Person> szemelyekLista, List<Evidence> bizonyitekokLista)
 		{
-			this.ugyId = ugyId;
+			this.id = id;
 			this.cim = cim;
 			this.leiras = leiras;
 			this.allapot = allapot;
@@ -25,7 +25,7 @@ namespace DigitalisNyomozas
 			this.bizonyitekokLista = bizonyitekokLista;
 		}
 
-		public string UgyId { get => ugyId; set => ugyId = value; }
+		public string Id { get => id; set => id = value; }
 		public string Cim { get => cim; set => cim = value; }
 		public string Leiras { get => leiras; set => leiras = value; }
 		public string Allapot { get => allapot; set => allapot = value; }
