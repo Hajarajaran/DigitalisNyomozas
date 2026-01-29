@@ -8,5 +8,13 @@ namespace DigitalisNyomozas
 {
 	internal class CaseStatus
 	{
+		private string statusz;
+
+		public CaseStatus(string statusz)
+		{
+			this.statusz = statusz;
+		}
+
+		public string Statusz { get => statusz; set => statusz = value; }
 	}
 }
