@@ -9,10 +9,10 @@ namespace DigitalisNyomozas
 	internal class User
 	{
 		private string nev;
-		private int id;
+		private string id;
 		private string nyomozo;
 
-		public User(string nev, int id, string nyomozo)
+		public User(string nev, string id, string nyomozo)
 		{
 			this.nev = nev;
 			this.id = id;
@@ -20,7 +20,7 @@ namespace DigitalisNyomozas
 		}
 
 		public string Nev { get => nev; set => nev = value; }
-		public int Id { get => id; set => id = value; }
+		public string Id { get => id; set => id = value; }
 		public string Nyomozo { get => nyomozo; set => nyomozo = value; }
 	}
 }
