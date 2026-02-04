@@ -6,15 +6,20 @@ using System.Threading.Tasks;
 
 namespace DigitalisNyomozas
 {
-	internal class CaseStatus
-	{
-		private string statusz;
+    internal class CaseStatus
+    {
+        private string statusz;
 
-		public CaseStatus(string statusz)
-		{
-			this.statusz = statusz;
-		}
+        public CaseStatus()
+        {
+            this.statusz = "nyitott";
+        }
 
-		public string Statusz { get => statusz; set => statusz = value; }
-	}
+        public string Statusz { get => statusz; set => statusz = value; }
+
+        public void SatuszMegvaltoztatasa(string ujStatusz)
+        {
+            statusz = ujStatusz;
+        }
+    }
 }

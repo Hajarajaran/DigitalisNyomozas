@@ -8,16 +8,16 @@ namespace DigitalisNyomozas
 {
 	internal class TimelineEvent
 	{
-		private string datum;
+		private DateTime datum;
 		private string leiras;
 
-		public TimelineEvent(string datum, string leiras)
+		public TimelineEvent(string leiras)
 		{
-			this.datum = datum;
+			this.datum = DateTime.Now;
 			this.leiras = leiras;
 		}
 
-		public string Datum { get => datum; set => datum = value; }
+		public DateTime Datum { get => datum; set => datum = value; }
 		public string Leiras { get => leiras; set => leiras = value; }
 	}
 }
