@@ -25,8 +25,18 @@ namespace DigitalisNyomozas
 
         public void UgyekListazasa()
         {
-            foreach (var i in ds.Ugyek)
-                Console.WriteLine($"[{i.Id}] {i.Cim} - Állapot: {i.Allapot.Statusz}");
+            if (ds.Ugyek.Count == 0)
+            {
+				Console.WriteLine("Az ügyek listája üres");
+			}
+
+            else
+            {
+				foreach (var i in ds.Ugyek)
+                {
+					Console.WriteLine($"[{i.Id}] {i.Cim} - Állapot: {i.Allapot.Statusz}");
+				}
+			}    
         }
     }
 }

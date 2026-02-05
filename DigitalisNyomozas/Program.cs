@@ -9,7 +9,6 @@
 
         static void Main(string[] args)
         {
-            // Alapértelmezett felhasználó
             ds.Felhasznalok.Add(new User("Sherlock Holmes", "001", "nyomozó"));
 
             bool programFut = true;
@@ -40,49 +39,89 @@
 
         static void UgyekKezelese()
         {
-            Console.WriteLine("1. Új ügy | 2. Listázás");
-            var sub = Console.ReadLine();
-            if (sub == "1")
-            {
-                Console.Write("Azonosító: "); string id = Console.ReadLine();
-                Console.Write("Cím: "); string title = Console.ReadLine();
-                Console.Write("Leírás: "); string desc = Console.ReadLine();
-                caseManager.UgyLetrehozasa(id, title, desc);
-            }
-            else
-            {
-                caseManager.UgyekListazasa();
-            }
+			bool helyesValasz = false;
+            string valasztasInput = "";
 
-            Console.ReadKey();
-        }
+
+			while (!helyesValasz)
+            {
+				Console.WriteLine("1. Új ügy | 2. Listázás");
+				valasztasInput = Console.ReadLine();
+				if (valasztasInput == "1" || valasztasInput == "2")
+				{
+                    helyesValasz = true;
+				}
+			}
+
+			if (valasztasInput == "1")
+			{
+				helyesValasz = false;
+                string idInput = "";
+
+				while (!helyesValasz)
+                {
+					Console.Write("Azonosító: ");
+					idInput = Console.ReadLine();
+					foreach (var i in ds.Ugyek)
+					{
+						if (i.Id == idInput)
+						{
+							Console.WriteLine("Ez az azonosító már létezik!"); //!!!!!!!!!!!!!!!!!!!!!!!
+						}
+					}
+				}
+								
+				Console.Write("Cím: ");
+				string cimInput = Console.ReadLine();
+				Console.Write("Leírás: ");
+				string leirasInput = Console.ReadLine();
+				caseManager.UgyLetrehozasa(idInput, cimInput, leirasInput);
+				Console.Write("[Nyomjon le egy billentyűt a folytatáshoz]");
+				Console.ReadKey();
+				helyesValasz = true;
+			}
+			else if (valasztasInput == "2")
+			{
+				caseManager.UgyekListazasa();
+
+				Console.Write("[Nyomjon le egy billentyűt a folytatáshoz]");
+				Console.ReadKey();
+				helyesValasz = true;
+			}
+
+
+		}
 
         static void SzemelyHozzaadasaUgyhoz()
         {
-            var ugy = UgyKivalasztasa();
-            if (ugy == null)
+			bool helyesValasz = false;
+			var ugy = UgyKivalasztasa();
+			Console.Write("Név: ");
+			string nevInput = Console.ReadLine();
+			Console.Write("Életkor: ");
+			int eletkorInput = int.Parse(Console.ReadLine());
+            while (!helyesValasz)
             {
-                return;
-            }
-
-            Console.Write("Név: "); string nevInput = Console.ReadLine();
-            Console.Write("Életkor: "); int eletkorInput = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Típus: 1. Gyanúsított | 2. Tanú");
-            string valasztasInput = Console.ReadLine();
-
-            Person szemely = new Person(nevInput, eletkorInput, "");
-            if (valasztasInput == "1")
-            {
-                ugy.GyanusitottLista.Add(new Suspect(szemely));
-            } 
-            else
-            {
-                Console.Write("Vallomás: "); string vallomasInput = Console.ReadLine();
-                ugy.TanuLista.Add(new Witness(szemely, vallomasInput));
-            }
-            Console.WriteLine("Személy hozzáadva.");
-            Console.ReadKey();
+				Console.WriteLine("Típus: 1. Gyanúsított | 2. Tanú");
+				string valasztasInput = Console.ReadLine();
+				Person szemely = new Person(nevInput, eletkorInput, "");
+				if (valasztasInput == "1")
+				{
+					ugy.GyanusitottLista.Add(new Suspect(szemely));
+					Console.Write("[Nyomjon le egy billentyűt a folytatáshoz]");
+					Console.ReadKey();
+					helyesValasz = true;
+				}
+				else if (valasztasInput == "2")
+				{
+					Console.Write("Vallomás: ");
+					string vallomasInput = Console.ReadLine();
+					ugy.TanuLista.Add(new Witness(szemely, vallomasInput));
+					Console.Write("[Nyomjon le egy billentyűt a folytatáshoz]");
+					Console.ReadKey();
+					helyesValasz = true;
+				}
+			}
         }
 
         static void BizonyitekHozzaadasaUgyhoz()
@@ -93,10 +132,14 @@
                 return;
             }
 
-            Console.Write("Bizonyíték ID: "); string idInput = Console.ReadLine();
-            Console.Write("Leírás: "); string leirasInput = Console.ReadLine();
-            Console.Write("Típus: "); string tipusInput = Console.ReadLine();
-            Console.Write("Megbízhatóság (1-5): "); int megbizhatosagInput = int.Parse(Console.ReadLine());
+            Console.Write("Bizonyíték ID: ");
+            string idInput = Console.ReadLine();
+            Console.Write("Leírás: ");
+            string leirasInput = Console.ReadLine();
+            Console.Write("Típus: ");
+            string tipusInput = Console.ReadLine();
+            Console.Write("Megbízhatóság (1-5): ");
+            int megbizhatosagInput = int.Parse(Console.ReadLine());
 
             evidenceManager.BizonyitekHozzaadasa(ugy, new Evidence(idInput, leirasInput, tipusInput, megbizhatosagInput));
             Console.WriteLine("Bizonyíték rögzítve.");
@@ -115,7 +158,10 @@
             string valasztasInput = Console.ReadLine();
             if (valasztasInput == "1")
             {
-                foreach (var i in ugy.EsemenyLista) Console.WriteLine($"{i.Datum}: {i.Leiras}");
+                foreach (var i in ugy.EsemenyLista)
+                {
+                    Console.WriteLine($"{i.Datum}: {i.Leiras}");
+                } 
             }
             else
             {
@@ -139,16 +185,32 @@
                 engine.GyanusitotErtekelese(i, ugy);
             }
                 
-
             Console.ReadKey();
         }
 
         static Case UgyKivalasztasa()
         {
-            caseManager.UgyekListazasa();
-            Console.Write("Válassz ügyet azonosító alapján: ");
-            string id = Console.ReadLine();
-            return ds.Ugyek.FirstOrDefault(x => x.Id == id);
-        }
-    }
+			if (ds.Ugyek.Count == 0)
+			{
+				Console.WriteLine("Az ügyek listája üres");
+                return default;
+			}
+
+			caseManager.UgyekListazasa();
+			bool helyesValasz = false;
+            while (!helyesValasz)
+            {
+				Console.Write("Válassz ügyet azonosító alapján: ");
+				string idInput = Console.ReadLine();
+				foreach (Case i in ds.Ugyek)
+				{
+					if (i.Id == idInput)
+					{
+						return i;                      
+					}
+				}
+			}
+			return default;
+		}
+	}
 }
