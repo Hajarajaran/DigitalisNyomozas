@@ -119,7 +119,7 @@
 				Person szemely = new Person(nevInput, eletkorInput, "");
 				if (valasztasInput == "1")
 				{
-                    Console.Write("Státusz: ");
+                    Console.Write("Státusz (szabad, megfigyelt, őrizetben): ");
                     string statusz = Console.ReadLine();
                     Suspect ujGyanusitott = new Suspect(szemely, statusz);
                     ds.Gyanusitottak.Add(ujGyanusitott);
@@ -223,14 +223,14 @@
                     foreach (var i in ugy.EsemenyLista)
                     {
                         Console.WriteLine($"{i.Datum}: {i.Leiras}");
-                        Console.Write("[Nyomjon le egy billentyűt a folytatáshoz]");
-                        Console.ReadKey();
-                        helyesValasz = true;
                     }
+                    Console.Write("[Nyomjon le egy billentyűt a folytatáshoz]");
+                    Console.ReadKey();
+                    helyesValasz = true;
                 }
                 else if (valasztasInput == "2")
                 {
-                    Console.WriteLine("Add meg az állapotot (nyitott, folyamatban, lezárt): ");
+                    Console.Write("Állapot (nyitott, folyamatban, lezárt): ");
                     string allapotInput = Console.ReadLine();
                     ugy.Allapot.SatuszMegvaltoztatasa(allapotInput);
                     Console.Write("[Nyomjon le egy billentyűt a folytatáshoz]");
@@ -246,7 +246,16 @@
             if (ugy == null)
             {
                 return;
-            } 
+            }
+
+            if (ugy.GyanusitottLista.Count == 0)
+            {
+                Console.WriteLine("Nincs elég gyanusított a művelet végrehajtásához");
+                Console.Write("[Nyomjon le egy billentyűt a folytatáshoz]");
+                Console.ReadKey();
+                return;
+
+            }
 
             foreach (var i in ugy.GyanusitottLista)
             {
