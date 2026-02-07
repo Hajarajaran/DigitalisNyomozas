@@ -12,11 +12,11 @@ namespace DigitalisNyomozas
 		private int gyanusitottsagiSzint;
 		private string statusz;
 
-		public Suspect(Person szemely)
+		public Suspect(Person szemely, string statusz)
 		{
 			this.szemely = szemely;
-			this.gyanusitottsagiSzint = 0;
-			this.statusz = "szabad";
+            this.statusz = statusz;
+            this.gyanusitottsagiSzint = 0;
 		}
 
 		public int GyanusitottsagiSzint { get => gyanusitottsagiSzint; set => gyanusitottsagiSzint = value; }

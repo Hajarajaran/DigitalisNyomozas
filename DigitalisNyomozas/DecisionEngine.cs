@@ -8,7 +8,7 @@ namespace DigitalisNyomozas
 {
 	internal class DecisionEngine
 	{
-        public void GyanusitotErtekelese(Suspect gyanusitott, Case ugy)
+        public void GyanusitottErtekelese(Suspect gyanusitott, Case ugy)
         {
             int osszMegbizhatosag = 0;
             foreach (var i in ugy.BizonyitekokLista)
@@ -16,7 +16,6 @@ namespace DigitalisNyomozas
                 osszMegbizhatosag += i.MegbizhatosagiErtek;
             }
             
-
             gyanusitott.GyanusitottsagiSzint = Math.Min(100, osszMegbizhatosag * 5);
 
             Console.WriteLine($"{gyanusitott.Szemely.Nev} gyanúsítottsági szintje: {gyanusitott.GyanusitottsagiSzint}%");

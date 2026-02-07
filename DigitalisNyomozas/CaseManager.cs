@@ -17,9 +17,9 @@ namespace DigitalisNyomozas
 
         internal DataStore Ds { get => ds; set => ds = value; }
 
-        public void UgyLetrehozasa(string id, string cim, string leiras)
+        public void UgyLetrehozasa(Case ugy)
         {
-            ds.Ugyek.Add(new Case(id, cim, leiras));
+            ds.Ugyek.Add(ugy);
             Console.WriteLine("Ügy sikeresen létrehozva.");
         }
 
