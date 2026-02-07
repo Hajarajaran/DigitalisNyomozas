@@ -11,6 +11,11 @@ namespace DigitalisNyomozas
         public void GyanusitottErtekelese(Suspect gyanusitott, Case ugy)
         {
             int osszMegbizhatosag = 0;
+            if (ugy.BizonyitekokLista.Count == 0)
+            {
+                Console.WriteLine("Nincs elegendő bizonyíték az elemzéshez");
+                return;
+            }
             foreach (var i in ugy.BizonyitekokLista)
             {
                 osszMegbizhatosag += i.MegbizhatosagiErtek;
